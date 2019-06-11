@@ -1,4 +1,4 @@
-export default function() {
+export default function () {
   return [
     {
       title: "Blog Dashboard",
@@ -35,6 +35,11 @@ export default function() {
       title: "Errors",
       htmlBefore: '<i class="material-icons">error</i>',
       to: "/errors",
+    },
+    {
+      title: "Thêm dự án mới",
+      htmlBefore: '<i class="material-icons">add_box</i>',
+      to: "/add-new-project",
     }
   ];
 }

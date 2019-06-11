@@ -12,6 +12,7 @@ import Errors from "./views/Errors";
 import ComponentsOverview from "./views/ComponentsOverview";
 import Tables from "./views/Tables";
 import BlogPosts from "./views/BlogPosts";
+import AddNewProject from "./views/AddNewProject";
 
 export default [
   {
@@ -54,5 +55,10 @@ export default [
     path: "/blog-posts",
     layout: DefaultLayout,
     component: BlogPosts
-  }
+  },
+  {
+    path: "/add-new-project",
+    layout: DefaultLayout,
+    component: AddNewProject
+  },
 ];
