@@ -13,6 +13,7 @@ import ComponentsOverview from "./views/ComponentsOverview";
 import Tables from "./views/Tables";
 import BlogPosts from "./views/BlogPosts";
 import AddNewProject from "./views/AddNewProject";
+import ProjectDetail from "./views/ProjectDetail";
 
 export default [
   {
@@ -61,4 +62,9 @@ export default [
     layout: DefaultLayout,
     component: AddNewProject
   },
+  {
+    path: "/project-detail",
+    layout: DefaultLayout,
+    component: ProjectDetail
+  }
 ];

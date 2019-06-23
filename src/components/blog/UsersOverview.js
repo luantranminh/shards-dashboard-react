@@ -35,7 +35,7 @@ class UsersOverview extends React.Component {
               ticks: {
                 callback(tick, index) {
                   // Jump every 7 values on the X axis labels to avoid clutter.
-                  return index % 7 !== 0 ? "" : tick;
+                  return index % 2 !== 0 ? "" : tick;
                 }
               }
             }
@@ -135,43 +135,12 @@ UsersOverview.propTypes = {
 UsersOverview.defaultProps = {
   title: "Users Overview",
   chartData: {
-    labels: Array.from(new Array(30), (_, i) => (i === 0 ? 1 : i)),
+    labels: Array.from(new Array(12), (_, i) => (i === 0 ? 1 : i + 1)),
     datasets: [
       {
-        label: "Current Month",
+        label: "Tích cực",
         fill: "start",
-        data: [
-          500,
-          800,
-          320,
-          180,
-          240,
-          320,
-          230,
-          650,
-          590,
-          1200,
-          750,
-          940,
-          1420,
-          1200,
-          960,
-          1450,
-          1820,
-          2800,
-          2102,
-          1920,
-          3920,
-          3202,
-          3140,
-          2800,
-          3200,
-          3200,
-          3400,
-          2910,
-          3100,
-          4250
-        ],
+        data: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
         backgroundColor: "rgba(0,123,255,0.1)",
         borderColor: "rgba(0,123,255,1)",
         pointBackgroundColor: "#ffffff",
@@ -181,40 +150,9 @@ UsersOverview.defaultProps = {
         pointHoverRadius: 3
       },
       {
-        label: "Past Month",
+        label: "Tiêu cực",
         fill: "start",
-        data: [
-          380,
-          430,
-          120,
-          230,
-          410,
-          740,
-          472,
-          219,
-          391,
-          229,
-          400,
-          203,
-          301,
-          380,
-          291,
-          620,
-          700,
-          300,
-          630,
-          402,
-          320,
-          380,
-          289,
-          410,
-          300,
-          530,
-          630,
-          720,
-          780,
-          1200
-        ],
+        data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
         backgroundColor: "rgba(255,65,105,0.1)",
         borderColor: "rgba(255,65,105,1)",
         pointBackgroundColor: "#ffffff",
