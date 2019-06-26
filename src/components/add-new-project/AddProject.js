@@ -18,21 +18,31 @@ import Axios from "../../../node_modules/axios/index";
 
 class AddProject extends Component {
   async handleOnButtonClick(e) {
+
+    // ?pagename=Vietteltelecom&product=DMAX
+    let myProduct = "";
+    this.props.productsValue.forEach((e) => {
+      myProduct += e.value + ",";
+    });
+    myProduct = myProduct.substring(0, myProduct.length - 1);
+
+    let url = `http://127.0.0.1:5000/posts?pagename=${this.state.value}&product=${myProduct}`
+
+    console.log(url)
+    
     cogoToast.loading("Đang tải", { position: "top-right" }).then(() => {
-      Axios.get("https://5cecec26b779120014b49b06.mockapi.io/users").then(u => {
+      Axios.post(url).then(u => {
         cogoToast.success("Thành công đang phân tích dự án, xin vui lòng chờ", {
           position: "top-right"
         });
-        console.log(u);
       });
     });
-    console.log(this.state.value);
+
     e.preventDefault();
   }
 
   constructor(props) {
     super(props);
-
     this.state = { value: "" };
   }
 

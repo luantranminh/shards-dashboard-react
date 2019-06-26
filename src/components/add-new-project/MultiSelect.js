@@ -56,10 +56,6 @@ class CreatableInputOnly extends Component<*, State> {
         event.preventDefault();
         break;
       case "Tab":
-        console.group("Value Added");
-        console.log(value);
-        console.groupEnd();
-
         for (let i = 0; i < value.length; i++) {
           if (value[i]["label"] === inputValue) {
             isExisted = true;
@@ -68,6 +64,7 @@ class CreatableInputOnly extends Component<*, State> {
         }
         if (!isExisted) {
           isExisted = false;
+          this.props.onGetProductValue([...value, createOption(inputValue)]);
           this.setState({
             inputValue: "",
             value: [...value, createOption(inputValue)]
@@ -77,7 +74,9 @@ class CreatableInputOnly extends Component<*, State> {
             inputValue: "",
             value: [...value]
           });
+          this.props.onGetProductValue(this.state.value);
         }
+
         event.preventDefault();
         break;
       default:
