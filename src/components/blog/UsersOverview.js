@@ -1,20 +1,100 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Row, Col, Card, CardHeader, CardBody, Button } from "shards-react";
+import {
+  Row,
+  Col,
+  Card,
+  CardHeader,
+  CardBody,
+  Button,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText,
+  FormSelect
+} from "shards-react";
 
 import RangeDatePicker from "../common/RangeDatePicker";
 import Chart from "../../utils/chart";
-
+var BlogUsersOverview;
 class UsersOverview extends React.Component {
   constructor(props) {
     super(props);
 
     this.canvasRef = React.createRef();
+
+
+    this.state = {
+      year: this.props.year,
+      chartData: this.props.chartData,
+    };
   }
 
   componentDidMount() {
     const chartOptions = {
-      ...{
+      responsive: true,
+      legend: {
+        position: "top"
+      },
+      elements: {
+        line: {
+          // A higher value makes the line look skewed at this ratio.
+          tension: 0.3
+        },
+        point: {
+          radius: 0
+        }
+      },
+      scales: {
+        xAxes: [
+          {
+            gridLines: false,
+            ticks: {
+              callback(tick, index) {
+                // Jump every 7 values on the X axis labels to avoid clutter.
+                return index % 2 !== 0 ? "" : tick;
+              }
+            }
+          }
+        ],
+        yAxes: [
+          {
+            ticks: {
+              suggestedMax: 45,
+              callback(tick) {
+                if (tick === 0) {
+                  return tick;
+                }
+                // Format the amounts using Ks for thousands.
+                return tick > 999 ? `${(tick / 1000).toFixed(1)}K` : tick;
+              }
+            }
+          }
+        ]
+      },
+      hover: {
+        mode: "nearest",
+        intersect: false
+      },
+      tooltips: {
+        custom: false,
+        mode: "nearest",
+        intersect: false
+      }
+  };
+  
+  if (typeof BlogUsersOverview !== "undefined") BlogUsersOverview.destroy();
+
+  BlogUsersOverview =  new Chart(this.canvasRef.current, {
+    type: "LineWithLine",
+    data: this.state.chartData,
+    options: chartOptions}
+  );  
+  BlogUsersOverview.render()
+  }
+
+
+  test2 = (chartData) => {
+    const chartOptions = {
         responsive: true,
         legend: {
           position: "top"
@@ -64,38 +144,179 @@ class UsersOverview extends React.Component {
           mode: "nearest",
           intersect: false
         }
-      },
-      ...this.props.chartOptions
     };
+    
+    if (typeof BlogUsersOverview !== "undefined") BlogUsersOverview.destroy();
 
-    const BlogUsersOverview = new Chart(this.canvasRef.current, {
+    
+    BlogUsersOverview =  new Chart(this.canvasRef.current, {
       type: "LineWithLine",
-      data: this.props.chartData,
-      options: chartOptions
-    });
+      data: chartData,
+      options: chartOptions}
+    );  
 
-    // They can still be triggered on hover.
-    const buoMeta = BlogUsersOverview.getDatasetMeta(0);
-    buoMeta.data[0]._model.radius = 0;
-    buoMeta.data[
-      this.props.chartData.datasets[0].data.length - 1
-    ]._model.radius = 0;
+  }
+  test(chartData) {
+    const chartOptions = {
+        responsive: true,
+        legend: {
+          position: "top"
+        },
+        elements: {
+          line: {
+            // A higher value makes the line look skewed at this ratio.
+            tension: 0.3
+          },
+          point: {
+            radius: 0
+          }
+        },
+        scales: {
+          xAxes: [
+            {
+              gridLines: false,
+              ticks: {
+                callback(tick, index) {
+                  // Jump every 7 values on the X axis labels to avoid clutter.
+                  return index % 2 !== 0 ? "" : tick;
+                }
+              }
+            }
+          ],
+          yAxes: [
+            {
+              ticks: {
+                suggestedMax: 45,
+                callback(tick) {
+                  if (tick === 0) {
+                    return tick;
+                  }
+                  // Format the amounts using Ks for thousands.
+                  return tick > 999 ? `${(tick / 1000).toFixed(1)}K` : tick;
+                }
+              }
+            }
+          ]
+        },
+        hover: {
+          mode: "nearest",
+          intersect: false
+        },
+        tooltips: {
+          custom: false,
+          mode: "nearest",
+          intersect: false
+        }
+    };
+    
+    // if (typeof BlogUsersOverview !== "undefined") BlogUsersOverview.destroy();
+
+    
+    BlogUsersOverview =  new Chart(this.canvasRef.current, {
+      type: "LineWithLine",
+      data: chartData,
+      options: chartOptions}
+    );  
+
 
     // Render the chart.
     BlogUsersOverview.render();
   }
 
+  handleChange = (e) => {
+    this.props.update_year(e.target.value);
+    
+    this.setState({
+      year: e.target.value,
+      chartData: this.props.chartData,
+    });
+
+    this.setState((state, props) => ({
+      chartData: props.chartData
+    }), () => {
+      const chartOptions = {
+        responsive: true,
+        legend: {
+          position: "top"
+        },
+        elements: {
+          line: {
+            // A higher value makes the line look skewed at this ratio.
+            tension: 0.3
+          },
+          point: {
+            radius: 0
+          }
+        },
+        scales: {
+          xAxes: [
+            {
+              gridLines: false,
+              ticks: {
+                callback(tick, index) {
+                  // Jump every 7 values on the X axis labels to avoid clutter.
+                  return index % 2 !== 0 ? "" : tick;
+                }
+              }
+            }
+          ],
+          yAxes: [
+            {
+              ticks: {
+                suggestedMax: 45,
+                callback(tick) {
+                  if (tick === 0) {
+                    return tick;
+                  }
+                  // Format the amounts using Ks for thousands.
+                  return tick > 999 ? `${(tick / 1000).toFixed(1)}K` : tick;
+                }
+              }
+            }
+          ]
+        },
+        hover: {
+          mode: "nearest",
+          intersect: false
+        },
+        tooltips: {
+          custom: false,
+          mode: "nearest",
+          intersect: false
+        }
+    };
+    
+    if (typeof BlogUsersOverview !== "undefined") BlogUsersOverview.destroy();
+  
+    BlogUsersOverview =  new Chart(this.canvasRef.current, {
+      type: "LineWithLine",
+      data: this.state.chartData,
+      options: chartOptions}
+    );  
+    });
+    
+  }
+
   render() {
     const { title } = this.props;
     return (
-      <Card small className="h-100">
+      <Card small  className="h-100">
         <CardHeader className="border-bottom">
           <h6 className="m-0">{title}</h6>
         </CardHeader>
         <CardBody className="pt-0">
           <Row className="border-bottom py-2 bg-light">
-            <Col sm="6" className="d-flex mb-2 mb-sm-0">
-              <RangeDatePicker />
+            <Col sm="5" className="d-flex mb-2 mb-sm-0">
+              <InputGroup className="mb-3">
+                <InputGroupAddon type="prepend">
+                  <InputGroupText>Năm</InputGroupText>
+                </InputGroupAddon>
+                <FormSelect onChange={(e) => this.handleChange(e)} value={this.state.year}>
+                  {this.props.years.map((y,i) => (
+                    <option value={y}  key={i+y}>{y}</option>
+                  ) )}
+                </FormSelect>
+              </InputGroup>
             </Col>
             <Col>
               <Button

@@ -12,7 +12,7 @@ const CustomSelect = () => (
       <InputGroupAddon type="prepend">
         <InputGroupText>Options</InputGroupText>
       </InputGroupAddon>
-      <FormSelect>
+      <FormSelect >
         <option>Choose</option>
         <option>...</option>
       </FormSelect>

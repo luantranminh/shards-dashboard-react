@@ -41,10 +41,10 @@ export default function() {
       htmlBefore: '<i class="material-icons">add_box</i>',
       to: "/add-new-project"
     },
-    {
-      title: "Chi tiết dự án",
-      htmlBefore: '<i class="material-icons">add_box</i>',
-      to: "/project-detail"
-    }
+    // {
+    //   title: "Chi tiết dự án",
+    //   htmlBefore: '<i class="material-icons">add_box</i>',
+    //   to: "/project-detail"
+    // }
   ];
 }
